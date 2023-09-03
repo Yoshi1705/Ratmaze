@@ -4,7 +4,7 @@ import "./style.css";
 import brick from "./brick.jpg";
 import Findpath from "../Path/Findpath";
 
-function Grid({ selectedImage, bricks, img1, img3, showAnimation, speed }) {
+function Grid({ selectedImage, refresh,bricks, img1, img3, showAnimation, speed }) {
 
    
   const [imagePositions, setImagePositions] = useState([]);
@@ -15,26 +15,29 @@ function Grid({ selectedImage, bricks, img1, img3, showAnimation, speed }) {
   const [grid, setGrid] = useState([]);
 
   const handleGridClick = (row, col) => {
-    if (ratPosition && selectedImage === ratPosition.image) {
-      window.alert("You have already placed a rat 🐭");
-      return;
-    } else if (cheesePosition && selectedImage === cheesePosition.image) {
-      window.alert("There should be only one cheese lol 😂");
-      return;
+    
+  
+    // Check if the selected image is cheese and it is not to the right or below the rat
+    if (selectedImage === img3) {
+      if (ratPosition && (row < ratPosition.row || col < ratPosition.col)) {
+        window.alert("Cheese should be to the right or below the rat 🧀");
+        return;
+      }
     }
-
+  
     if (!ratPosition && selectedImage === img1) {
       setRatPosition({ row, col, image: selectedImage });
     }
-
+  
     if (!cheesePosition && selectedImage === img3) {
       setCheesePosition({ row, col, image: selectedImage });
     }
-
+  
     const newPosition = { row, col, image: selectedImage };
     setImagePositions((prevPositions) => [...prevPositions, newPosition]);
   };
-
+  
+    
 
   useEffect(()=>{
 
@@ -58,7 +61,8 @@ function Grid({ selectedImage, bricks, img1, img3, showAnimation, speed }) {
 
   useEffect(() => {
     const newGrid = [];
-    
+      
+     
 
     for (let row = 0; row <  GridSize; row++) {
       const currentRow = [];

@@ -20,6 +20,8 @@ function Maze() {
  
   const [speed, setspeed] = useState(100);
 
+   
+
   const handleAnimation = () => {
     setShowAnimation(!showAnimation);
   };
@@ -34,9 +36,7 @@ function Maze() {
     }
   };
 
-  const refreshHandler = () => {
-    return window.location.reload();
-  };
+   
 
   const placeBricks = () => {
     const randomBricks = [];
@@ -53,8 +53,13 @@ function Maze() {
     setBricks(randomBricks);
   };
 
-
+    const refreshHandler = () =>{
+       
+      window.location.reload();
+    }
   
+
+    
 
   return (
     <div
@@ -198,7 +203,7 @@ function Maze() {
 
       <Grid
         selectedImage={selectedImage}
-        
+         
         bricks={bricks}
         img1={img1}
         img3={img3}
